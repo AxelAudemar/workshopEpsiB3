@@ -42,4 +42,4 @@
   </li>
 </ul>
 
-<p>Equipe : 01 \n AMEZTOY Benjamin, AUDEMAR Axel, AURIAT Alexandre, BANGARIGADU Yershki, BENOIST Sylvain, BENOIT Damien, BERRA Anais, BEY Jean-baptiste, Souhard Elise</p>
+<p>Equipe : 01 <br> AMEZTOY Benjamin, AUDEMAR Axel, AURIAT Alexandre, BANGARIGADU Yershki, BENOIST Sylvain, BENOIT Damien, BERRA Anais, BEY Jean-baptiste, Souhard Elise</p>
