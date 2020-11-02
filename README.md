@@ -36,7 +36,9 @@
     Une solution simple mais fonctionnelle sera préférée à une solution
     complexe et non maitrisée
   </li>
+  <li>
     Réponse aux besoins des publics visés
+  </li>
   <li>
     Créativité, innovation et accessibilité
   </li>
