@@ -27,3 +27,19 @@
     Une analyse et réflexion sur les Data digitales : utilisation, sécurité….
   </li>
 </ul>
+<h1>Points essentiels</h1>
+<ul>
+  <li>
+    Travail collectif et la coopération dans l’équipe
+  </li>
+  <li>
+    Une solution simple mais fonctionnelle sera préférée à une solution
+    complexe et non maitrisée
+  </li>
+    Réponse aux besoins des publics visés
+  <li>
+    Créativité, innovation et accessibilité
+  </li>
+</ul>
+
+<p>Equipe : 01 \n AMEZTOY Benjamin, AUDEMAR Axel, AURIAT Alexandre, BANGARIGADU Yershki, BENOIST Sylvain, BENOIT Damien, BERRA Anais, BEY Jean-baptiste, Souhard Elise</p>
