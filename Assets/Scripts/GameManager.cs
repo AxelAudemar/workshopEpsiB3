@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public StructureManager structureManager;
     public PlacementManager placementManager;
 
+    public static int indicePollution = 0;
+
     private void Start()
     {
         uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour
         uiController.OnBankPlacement += BankPlacementHandler;
         uiController.OnEoliennePlacement += EolienneHandler;
         uiController.OnDestroyPlacement += DestroyHandler;
-        
+
     }
     private void EolienneHandler()
     {
@@ -71,6 +73,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0, inputManager.CameraMovementVector.y));
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
     }
+
+    public static int GetScore() { return indicePollution; }
+
+    public static void UpdateScore(int modification)
+    {
+        indicePollution += modification;
+        Debug.Log("Le score est maintenant de : " + GetScore());
+    }
+
 }

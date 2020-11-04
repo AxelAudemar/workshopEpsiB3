@@ -27,12 +27,14 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(houseWeights);
             placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
             //AudioPlayer.instance.PlayPlacementSound();
+            GameManager.UpdateScore(10);
         }
     }
     public void PlaceEolienne(Vector3Int position)
     {
         placementManager.PlaceObjectOnTheMap(position, eloPrefabs[0].prefab, CellType.Structure);
         //AudioPlayer.instance.PlayPlacementSound();
+        GameManager.UpdateScore(-30);
     }
     public void PlaceSpecial(Vector3Int position)
     {
@@ -51,6 +53,7 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(specialWeights);
             placementManager.PlaceObjectOnTheMap(position, bankPrefabs[randomIndex].prefab, CellType.Structure);
             //AudioPlayer.instance.PlayPlacementSound();
+            GameManager.UpdateScore(20);
         }
     }
 
