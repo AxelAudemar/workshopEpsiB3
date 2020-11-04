@@ -7,19 +7,21 @@ using UnityEngine;
 
 public class StructureManager : MonoBehaviour
 {
-    public StructurePrefabWeighted[] housesPrefabe, specialPrefabs, bankPrefabs, eloPrefabs;
+    public StructurePrefabWeighted[] housesPrefabe, buildingPrefabs, ecoBuildingPrefabs, eloPrefabs, firePrefabs, voltaPrefabs, coalPrefabs, 
+                                     bikePrefabs, ecoTrashPrefabs, trashPrefabs, policePrefabs;
     public PlacementManager placementManager;
 
-    private float[] houseWeights, specialWeights, bankWeights, eloPreWheights;
+    private float[] houseWeights, buildingWeights, ecoBuildingWeights, eloPreWheights;
 
     private void Start()
     {
         houseWeights = housesPrefabe.Select(prefabStats => prefabStats.weight).ToArray();
-        specialWeights = specialPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
-        bankWeights = bankPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
+        buildingWeights = ecoBuildingPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
+        ecoBuildingWeights = buildingPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
         eloPreWheights = eloPrefabs.Select(prefabStats => prefabStats.weight).ToArray();
     }
 
+    // Gestion des création via le bouton
     public void PlaceHouse(Vector3Int position)
     {
         if (CheckPositionBeforePlacement(position))
@@ -27,33 +29,79 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(houseWeights);
             placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
             //AudioPlayer.instance.PlayPlacementSound();
-            GameManager.UpdateScore(10);
         }
     }
     public void PlaceEolienne(Vector3Int position)
     {
         placementManager.PlaceObjectOnTheMap(position, eloPrefabs[0].prefab, CellType.Structure);
         //AudioPlayer.instance.PlayPlacementSound();
-        GameManager.UpdateScore(-30);
     }
-    public void PlaceSpecial(Vector3Int position)
+
+    public void PlaceBuilding(Vector3Int position)
     {
         if (CheckPositionBeforePlacement(position))
         {
-            int randomIndex = GetRandomWeightedIndex(specialWeights);
-            placementManager.PlaceObjectOnTheMap(position, specialPrefabs[randomIndex].prefab, CellType.Structure);
-            //AudioPlayer.instance.PlayPlacementSound();
+            placementManager.PlaceObjectOnTheMap(position, buildingPrefabs[0].prefab, CellType.Structure);
         }
     }
 
-    public void PlaceBank(Vector3Int position)
+    public void PlaceEcoBuilding(Vector3Int position)
     {
         if (CheckPositionBeforePlacement(position))
         {
-            int randomIndex = GetRandomWeightedIndex(specialWeights);
-            placementManager.PlaceObjectOnTheMap(position, bankPrefabs[randomIndex].prefab, CellType.Structure);
-            //AudioPlayer.instance.PlayPlacementSound();
-            GameManager.UpdateScore(20);
+            placementManager.PlaceObjectOnTheMap(position, ecoBuildingPrefabs[0].prefab, CellType.Structure);
+        }
+    }
+
+    public void PlaceFire(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, firePrefabs[0].prefab, CellType.Structure);
+        }
+    }
+
+    public void PlaceVolta(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, voltaPrefabs[0].prefab, CellType.Structure);
+        }
+    }
+
+    public void PlaceCoal(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, coalPrefabs[0].prefab, CellType.Structure);
+        }
+    }
+    public void PlaceBike(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, bikePrefabs[0].prefab, CellType.Structure);
+        }
+    }
+    public void PlaceEcoTrash(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, ecoTrashPrefabs[0].prefab, CellType.Structure);
+        }
+    }
+    public void PlaceTrash(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, trashPrefabs[0].prefab, CellType.Structure);
+        }
+    }
+    public void PlacePolice(Vector3Int position)
+    {
+        if (CheckPositionBeforePlacement(position))
+        {
+            placementManager.PlaceObjectOnTheMap(position, policePrefabs[0].prefab, CellType.Structure);
         }
     }
 

@@ -15,18 +15,67 @@ public class GameManager : MonoBehaviour
     public StructureManager structureManager;
     public PlacementManager placementManager;
 
-    public static int indicePollution = 0;
-
     private void Start()
     {
         uiController.OnRoadPlacement += RoadPlacementHandler;
         uiController.OnHousePlacement += HousePlacementHandler;
-        uiController.OnSpecialPlacement += SpecialPlacementHandler;
-        uiController.OnBankPlacement += BankPlacementHandler;
         uiController.OnEoliennePlacement += EolienneHandler;
-        uiController.OnDestroyPlacement += DestroyHandler;
+        uiController.OnBuildingPlacement += BuildingPlacementHandler;
+        uiController.OnEcoBuildingPlacement += EcoBuildingPlacementHandler;
+        uiController.OnPolicePlacement += PolicePlacementHandler;
+        uiController.OnTrashPlacement += TrashPlacementHandler;
+        uiController.OnEcoTrashPlacement += EcoTrashPlacementHandler;
+        uiController.OnBikePlacement += BikePlacementHandler;
+        uiController.OnCoalPlacement += CoalPlacementHandler;
+        uiController.OnVoltaPlacement += VoltaPlacementHandler;
+        uiController.OnFirePlacement += FirePlacementHandler;
 
+        uiController.OnDestroyPlacement += DestroyHandler;
+        
     }
+
+    private void FirePlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceFire;
+    }
+
+    private void VoltaPlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceVolta;
+    }
+
+    private void CoalPlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceCoal;
+    }
+
+    private void BikePlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceBike;
+    }
+
+    private void EcoTrashPlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceEcoTrash;
+    }
+
+    private void TrashPlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlaceTrash;
+    }
+
+    private void PolicePlacementHandler()
+    {
+        ClearInputActions();
+        inputManager.OnMouseClick += structureManager.PlacePolice;
+    }
+
     private void EolienneHandler()
     {
         ClearInputActions();
@@ -38,10 +87,10 @@ public class GameManager : MonoBehaviour
         inputManager.OnMouseClick += structureManager.DestroyAssets;
     }
 
-    private void SpecialPlacementHandler()
+    private void BuildingPlacementHandler()
     {
         ClearInputActions();
-        inputManager.OnMouseClick += structureManager.PlaceSpecial;
+        inputManager.OnMouseClick += structureManager.PlaceBuilding;
     }
 
     private void HousePlacementHandler()
@@ -49,10 +98,10 @@ public class GameManager : MonoBehaviour
         ClearInputActions();
         inputManager.OnMouseClick += structureManager.PlaceHouse;
     }
-    private void BankPlacementHandler()
+    private void EcoBuildingPlacementHandler()
     {
         ClearInputActions();
-        inputManager.OnMouseClick += structureManager.PlaceBank;
+        inputManager.OnMouseClick += structureManager.PlaceEcoBuilding;
     }
 
     private void RoadPlacementHandler()
@@ -73,15 +122,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x, 0, inputManager.CameraMovementVector.y));
+        cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0, inputManager.CameraMovementVector.y));
     }
-
-    public static int GetScore() { return indicePollution; }
-
-    public static void UpdateScore(int modification)
-    {
-        indicePollution += modification;
-        Debug.Log("Le score est maintenant de : " + GetScore());
-    }
-
 }
