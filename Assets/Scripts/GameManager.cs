@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     //Population
     public int CurrentPopulation = 0;
     public int MaxPopulation = 0;
+    public static int indicePollution = 0;
 
     private void Start()
     {
@@ -213,5 +214,11 @@ public class GameManager : MonoBehaviour
                }
             }
         }
+    public static int GetScore() { return indicePollution; }
+
+    public static void UpdateScore(int modification)
+    {
+        indicePollution += modification;
+        Debug.Log("Votre indice de pollution est maintenant de : " + GetScore());
     }
 }
