@@ -16,15 +16,15 @@ public class GameManager : MonoBehaviour
     public PlacementManager placementManager;
 
     // Settings
-    public int CriticalPollution = 50; // At which value start population decrease
+    public static int CriticalPollution = 50; // At which value start population decrease
 
     // Electricity
-    public int ElectricityProduction = 0;
-    public int ElectricityConsumption = 0;
+    public static int ElectricityProduction = 0;
+    public static int ElectricityConsumption = 0;
 
     //Population
-    public int CurrentPopulation = 0;
-    public int MaxPopulation = 0;
+    public static int CurrentPopulation = 0;
+    public static int MaxPopulation = 0;
     public static int indicePollution = 0;
 
     private void Start()
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     public static int GetElectricityConsumption() 
     {
-        return Electricity;
+        return ElectricityConsumption;
     }
 
     public static void UpdateElectricityProduction(int newValue) 
@@ -184,6 +184,7 @@ public class GameManager : MonoBehaviour
         if (GetElectricityConsumption()>GetElectricityProduction())
         {
             // TODO : Notification pas assez d'énergie
+            Debug.Log("Vous n'avez pas assez d'énergie pour faire cela");
             return false;
         } else {
             return true;
@@ -195,18 +196,23 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             Debug.Log("Routine Pop");
-            yield return new WaitForSeconds(5);
-            if (GetScore() >= CriticalPollution) 
-            {
+            yield return new WaitForSeconds(20);
+            if (GetPollution() >= CriticalPollution) {
                // Pollution high
                if (GetCurrentPopulation()>0) {
                    // Decrease Population
                    UpdateCurrentPopulation(-1);
                }
+            } else if (GetElectricityConsumption()>GetElectricityProduction()) {
+                // Electricity production too low
+                if (GetCurrentPopulation()>0) {
+                   // Decrease Population
+                   UpdateCurrentPopulation(-1);
+                }
+
             } else {
                //Pollution OK
-               if (GetCurrentPopulation()<GetMaxPopulation()) 
-               {
+               if (GetCurrentPopulation()<GetMaxPopulation()) {
                    // Increase Population
                    UpdateCurrentPopulation(1);
                } else {
@@ -214,11 +220,12 @@ public class GameManager : MonoBehaviour
                }
             }
         }
-    public static int GetScore() { return indicePollution; }
+    }
+    public static int GetPollution() { return indicePollution; }
 
-    public static void UpdateScore(int modification)
+    public static void UpdatePollution(int modification)
     {
         indicePollution += modification;
-        Debug.Log("Votre indice de pollution est maintenant de : " + GetScore());
+        Debug.Log("Votre indice de pollution est maintenant de : " + GetPollution());
     }
 }
