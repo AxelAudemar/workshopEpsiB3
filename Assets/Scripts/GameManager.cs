@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public StructureManager structureManager;
     public PlacementManager placementManager;
 
+    public static int indicePollution = 0;
+
     private void Start()
     {
         uiController.OnRoadPlacement += RoadPlacementHandler;
@@ -123,5 +125,13 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0, inputManager.CameraMovementVector.y));
+    }
+
+    public static int GetScore() { return indicePollution; }
+
+    public static void UpdateScore(int modification)
+    {
+        indicePollution += modification;
+        Debug.Log("Votre indice de pollution est maintenant de : " + GetScore());
     }
 }

@@ -29,12 +29,14 @@ public class StructureManager : MonoBehaviour
             int randomIndex = GetRandomWeightedIndex(houseWeights);
             placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
             //AudioPlayer.instance.PlayPlacementSound();
+            GameManager.UpdateScore(10);
         }
     }
     public void PlaceEolienne(Vector3Int position)
     {
         placementManager.PlaceObjectOnTheMap(position, eloPrefabs[0].prefab, CellType.Structure);
         //AudioPlayer.instance.PlayPlacementSound();
+        GameManager.UpdateScore(-20);
     }
 
     public void PlaceBuilding(Vector3Int position)
@@ -42,6 +44,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, buildingPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(10);
         }
     }
 
@@ -50,6 +53,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, ecoBuildingPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(-10);
         }
     }
 
@@ -66,6 +70,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, voltaPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(-30);
         }
     }
 
@@ -74,6 +79,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, coalPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(50);
         }
     }
     public void PlaceBike(Vector3Int position)
@@ -81,6 +87,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, bikePrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(-10);
         }
     }
     public void PlaceEcoTrash(Vector3Int position)
@@ -88,6 +95,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, ecoTrashPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(-20);
         }
     }
     public void PlaceTrash(Vector3Int position)
@@ -95,6 +103,7 @@ public class StructureManager : MonoBehaviour
         if (CheckPositionBeforePlacement(position))
         {
             placementManager.PlaceObjectOnTheMap(position, trashPrefabs[0].prefab, CellType.Structure);
+            GameManager.UpdateScore(-10);
         }
     }
     public void PlacePolice(Vector3Int position)
