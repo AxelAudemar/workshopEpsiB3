@@ -26,14 +26,19 @@ public class StructureManager : MonoBehaviour
     {
         if (CheckPositionBeforePlacement(position))
         {
-            int randomIndex = GetRandomWeightedIndex(houseWeights);
-            placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
-            //AudioPlayer.instance.PlayPlacementSound();
+            if (CanBuildNewStructure()){
+                int randomIndex = GetRandomWeightedIndex(houseWeights);
+                placementManager.PlaceObjectOnTheMap(position, housesPrefabe[randomIndex].prefab, CellType.Structure);
+                GameManager.UpdateElectricityConsumption(2);
+                GameManager.UpdateMaxPopulation(4);
+                //AudioPlayer.instance.PlayPlacementSound();
+            }
         }
     }
     public void PlaceEolienne(Vector3Int position)
     {
         placementManager.PlaceObjectOnTheMap(position, eloPrefabs[0].prefab, CellType.Structure);
+        GameManager.UpdateElectricityProduction(5);
         //AudioPlayer.instance.PlayPlacementSound();
     }
 
@@ -41,7 +46,11 @@ public class StructureManager : MonoBehaviour
     {
         if (CheckPositionBeforePlacement(position))
         {
-            placementManager.PlaceObjectOnTheMap(position, buildingPrefabs[0].prefab, CellType.Structure);
+            if (CanBuildNewStructure()){
+                placementManager.PlaceObjectOnTheMap(position, buildingPrefabs[0].prefab, CellType.Structure);
+                GameManager.UpdateElectricityConsumption(10);
+                GameManager.UpdateMaxPopulation(16);
+            }
         }
     }
 
@@ -49,7 +58,9 @@ public class StructureManager : MonoBehaviour
     {
         if (CheckPositionBeforePlacement(position))
         {
-            placementManager.PlaceObjectOnTheMap(position, ecoBuildingPrefabs[0].prefab, CellType.Structure);
+            if (CanBuildNewStructure()){
+                placementManager.PlaceObjectOnTheMap(position, ecoBuildingPrefabs[0].prefab, CellType.Structure);
+            }
         }
     }
 
@@ -57,7 +68,9 @@ public class StructureManager : MonoBehaviour
     {
         if (CheckPositionBeforePlacement(position))
         {
-            placementManager.PlaceObjectOnTheMap(position, firePrefabs[0].prefab, CellType.Structure);
+            if (CanBuildNewStructure()){
+                placementManager.PlaceObjectOnTheMap(position, firePrefabs[0].prefab, CellType.Structure);
+            }
         }
     }
 
