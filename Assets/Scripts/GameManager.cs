@@ -15,14 +15,24 @@ public class GameManager : MonoBehaviour
     public StructureManager structureManager;
     public PlacementManager placementManager;
 
+    // Settings
+    public static int CriticalPollution = 50; // At which value start population decrease
+
+    // Electricity
+    public static int ElectricityProduction = 0;
+    public static int ElectricityConsumption = 0;
+
+    //Population
+    public static int CurrentPopulation = 0;
+    public static int MaxPopulation = 0;
     public static int indicePollution = 0;
 
     private void Start()
     {
         uiController.OnRoadPlacement += RoadPlacementHandler;
-        uiController.OnHousePlacement += HousePlacementHandler;
-        uiController.OnEoliennePlacement += EolienneHandler;
-        uiController.OnBuildingPlacement += BuildingPlacementHandler;
+        uiController.OnHousePlacement += HousePlacementHandler; // +4 Max Pop - Consume 2 Electricity
+        uiController.OnEoliennePlacement += EolienneHandler; // +5 Electricity
+        uiController.OnBuildingPlacement += BuildingPlacementHandler; // +16 Max Pop - Consume 10 Electricity
         uiController.OnEcoBuildingPlacement += EcoBuildingPlacementHandler;
         uiController.OnPolicePlacement += PolicePlacementHandler;
         uiController.OnTrashPlacement += TrashPlacementHandler;
@@ -33,7 +43,9 @@ public class GameManager : MonoBehaviour
         uiController.OnFirePlacement += FirePlacementHandler;
 
         uiController.OnDestroyPlacement += DestroyHandler;
-        
+
+        // Population Loop
+        StartCoroutine(PopulationLife());
     }
 
     private void FirePlacementHandler()
@@ -127,11 +139,93 @@ public class GameManager : MonoBehaviour
         cameraMovement.MoveCamera(new Vector3(inputManager.CameraMovementVector.x,0, inputManager.CameraMovementVector.y));
     }
 
-    public static int GetScore() { return indicePollution; }
+    public static void UpdateElectricityConsumption(int newValue) 
+    {
+        ElectricityConsumption += newValue;
+    }
 
-    public static void UpdateScore(int modification)
+    public static int GetElectricityConsumption() 
+    {
+        return ElectricityConsumption;
+    }
+
+    public static void UpdateElectricityProduction(int newValue) 
+    {
+        ElectricityProduction += newValue;
+    }
+
+    public static int GetElectricityProduction() 
+    {
+        return ElectricityProduction;
+    }
+
+    public static void UpdateCurrentPopulation(int newValue) 
+    {
+        CurrentPopulation += newValue;
+    }
+
+    public static int GetCurrentPopulation() 
+    {
+        return CurrentPopulation;
+    }
+
+    public static void UpdateMaxPopulation(int newValue) 
+    {
+        MaxPopulation += newValue;
+    }
+
+    public static int GetMaxPopulation() 
+    {
+        return MaxPopulation;
+    }
+
+    public static bool CanBuildNewStructure() 
+    {
+        if (GetElectricityConsumption()>GetElectricityProduction())
+        {
+            // TODO : Notification pas assez d'énergie
+            Debug.Log("Vous n'avez pas assez d'énergie pour faire cela");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //Process management increase and decrease current population
+    private IEnumerator PopulationLife() {
+        while (true)
+        {
+            Debug.Log("Routine Pop");
+            yield return new WaitForSeconds(20);
+            if (GetPollution() >= CriticalPollution) {
+               // Pollution high
+               if (GetCurrentPopulation()>0) {
+                   // Decrease Population
+                   UpdateCurrentPopulation(-1);
+               }
+            } else if (GetElectricityConsumption()>GetElectricityProduction()) {
+                // Electricity production too low
+                if (GetCurrentPopulation()>0) {
+                   // Decrease Population
+                   UpdateCurrentPopulation(-1);
+                }
+
+            } else {
+               //Pollution OK
+               if (GetCurrentPopulation()<GetMaxPopulation()) {
+                   // Increase Population
+                   UpdateCurrentPopulation(1);
+               } else {
+                   // Current Population full
+               }
+            }
+        }
+    }
+    public static int GetPollution() { return indicePollution; }
+
+    public static void UpdatePollution(int modification)
     {
         indicePollution += modification;
-        Debug.Log("Votre indice de pollution est maintenant de : " + GetScore());
+        Debug.Log("Votre indice de pollution est maintenant de : " + GetPollution());
     }
 }
